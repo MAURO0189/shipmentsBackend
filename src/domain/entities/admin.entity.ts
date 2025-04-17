@@ -12,8 +12,8 @@ export class Admin {
   @PrimaryGeneratedColumn({ type: "bigint", unsigned: true })
   id!: number;
 
-  @Column({ type: "varchar", length: 55, nullable: true })
-  AdminName!: string | null;
+  @Column({ type: "varchar", length: 55, nullable: false })
+  AdminName!: string;
 
   @Index({ unique: true })
   @Column({ type: "varchar", length: 255 })
