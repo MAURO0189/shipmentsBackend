@@ -1,4 +1,4 @@
-import { Admin } from "../../domain/entities/admin.entity";
+import { Admin } from "../../infrastructure/database/entities/admin.entity";
 import { AdminRepository } from "../../domain/repositories/admin.repository";
 import { RegisterAdminDto } from "../dtos/registerAdmin.dto";
 import { LoginAdminDto } from "../dtos/loginAdmin.dto";

@@ -1,4 +1,4 @@
-import { Admin } from "../entities/admin.entity";
+import { Admin } from "../../infrastructure/database/entities/admin.entity";
 
 export interface AdminRepository {
   findOneByEmail(email: string): Promise<Admin | null>;

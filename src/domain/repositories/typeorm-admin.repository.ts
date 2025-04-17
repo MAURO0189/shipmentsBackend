@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../infrastructure/database/data-source"; // ajusta esto si usas otro archivo
-import { Admin } from "../../domain/entities/admin.entity";
+import { Admin } from "../../infrastructure/database/entities/admin.entity";
 import { AdminRepository } from "../../domain/repositories/admin.repository";
 
 export class TypeOrmAdminRepository implements AdminRepository {

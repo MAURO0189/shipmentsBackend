@@ -1,4 +1,4 @@
-import { User } from "../../domain/entities/user.entity";
+import { User } from "../../infrastructure/database/entities/user.entity";
 import { UserRepository } from "../../domain/repositories/user.repository";
 import * as bcryptjs from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";

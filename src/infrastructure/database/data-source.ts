@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { config } from "dotenv";
 import { DataSource } from "typeorm";
-import { User } from "../../domain/entities/user.entity";
-import { Admin } from "../../domain/entities/admin.entity";
+import { User } from "./entities/user.entity";
+import { Admin } from "./entities/admin.entity";
 
 config();
 
