@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../infrastructure/database/data-source"; // ajusta esto si usas otro archivo
+import { AppDataSource } from "../../infrastructure/database/data-source";
 import { Admin } from "../../infrastructure/database/entities/admin.entity";
 import { AdminRepository } from "../../domain/repositories/admin.repository";
 
