@@ -18,7 +18,8 @@ export class AdminController {
     } catch (error) {
       res.status(400).json({
         success: false,
-        message: error,
+        message: "Error al registrar el administrador",
+        error: error,
       });
     }
   }
@@ -35,7 +36,8 @@ export class AdminController {
     } catch (error) {
       res.status(401).json({
         success: false,
-        message: error,
+        message: "Error al iniciar sesión",
+        error: error,
       });
     }
   }
