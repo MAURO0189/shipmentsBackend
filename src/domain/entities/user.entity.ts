@@ -12,18 +12,24 @@ export class User {
   @PrimaryGeneratedColumn({ type: "bigint", unsigned: true })
   id!: number;
 
-  @Column({ type: "varchar", length: 55, nullable: true })
-  name!: string | null;
+  @Column({ type: "varchar", length: 55, nullable: false })
+  username!: string;
+
+  @Column({ type: "varchar", length: 55, nullable: false })
+  lastName!: string;
+
+  @Column({ type: "varchar", length: 30, nullable: false })
+  phoneNumber!: string;
 
   @Index({ unique: true })
   @Column({ type: "varchar", length: 255 })
   email!: string;
 
-  @Column({ nullable: false })
+  @Column({ type: "varchar", nullable: false })
   password!: string;
 
   @Index()
-  @Column({ nullable: true, type: "varchar" })
+  @Column({ type: "varchar", nullable: true })
   uuid!: string | null;
 
   @Column({
