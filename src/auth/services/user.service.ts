@@ -106,11 +106,4 @@ export class UserService {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
     return passwordRegex.test(password);
   }
-
-  private isConfirmPasswordValid(
-    password: string,
-    confirmPassword: string
-  ): boolean {
-    return password === confirmPassword;
-  }
 }
