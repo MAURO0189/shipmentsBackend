@@ -5,7 +5,9 @@ import {
   Index,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { Shipment } from "./shipment.entity";
 
 @Entity()
 export class User {
@@ -54,4 +56,7 @@ export class User {
     onUpdate: "CURRENT_TIMESTAMP",
   })
   lastUpdate!: Date;
+
+  @OneToMany(() => Shipment, (shipment) => shipment.user)
+  shipments!: Shipment[];
 }
