@@ -5,6 +5,7 @@ import { adminRouter } from "./infrastructure/routes/admin.route";
 import { createClient } from "redis";
 import { AppDataSource } from "./infrastructure/database/data-source";
 import { userRouter } from "./infrastructure/routes/user.route";
+import { shipmentRouter } from "./infrastructure/routes/shipment.routes";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 //Routes
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
+app.use("/api/shipment", shipmentRouter);
 
 app.use(
   cors({
