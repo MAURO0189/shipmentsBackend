@@ -11,7 +11,7 @@ import { Shipment } from "./shipment.entity";
 
 @Entity()
 export class RouteShipment {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint", unsigned: true })
   id!: number;
 
   @Column({ type: "bigint", unsigned: true })

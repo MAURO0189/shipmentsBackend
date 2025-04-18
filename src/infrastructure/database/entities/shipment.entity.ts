@@ -12,7 +12,7 @@ import { ShipmentStatus } from "../../../domain/enums/shipment-status.enum";
 
 @Entity()
 export class Shipment {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint", unsigned: true })
   id!: number;
 
   @Column({ unique: true })

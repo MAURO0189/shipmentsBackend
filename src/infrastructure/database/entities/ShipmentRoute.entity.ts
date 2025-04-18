@@ -14,7 +14,7 @@ import { RouteStatus } from "../../../domain/enums/route-status.enum";
 
 @Entity()
 export class ShipmentRoute {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "bigint", unsigned: true })
   id!: number;
 
   @Column({ unique: true })
