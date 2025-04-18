@@ -6,6 +6,8 @@ import { createClient } from "redis";
 import { AppDataSource } from "./infrastructure/database/data-source";
 import { userRouter } from "./infrastructure/routes/user.route";
 import { shipmentRouter } from "./infrastructure/routes/shipment.routes";
+import { carrierRouter } from "./infrastructure/routes/carrier.routes";
+import { shipmentRouteRouter } from "./infrastructure/routes/shipmentRoute.routes";
 
 dotenv.config();
 
@@ -27,6 +29,8 @@ app.use(express.json());
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/shipment", shipmentRouter);
+app.use("/api/carriers", carrierRouter);
+app.use("/api/shipment-routes", shipmentRouteRouter);
 
 app.use(
   cors({
