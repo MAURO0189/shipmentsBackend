@@ -4,6 +4,9 @@ import { DataSource } from "typeorm";
 import { User } from "./entities/user.entity";
 import { Admin } from "./entities/admin.entity";
 import { Shipment } from "./entities/shipment.entity";
+import { ShipmentRoute } from "./entities/ShipmentRoute.entity";
+import { Carrier } from "./entities/Carrier.entity";
+import { RouteShipment } from "./entities/RouteShipment.entity";
 
 config();
 
@@ -16,5 +19,5 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User, Admin, Shipment],
+  entities: [User, Admin, Shipment, ShipmentRoute, Carrier, RouteShipment],
 });
