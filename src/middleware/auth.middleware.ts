@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import { JwtUtils } from "../shared/utils/jwt";
 
 declare global {
@@ -9,11 +9,11 @@ declare global {
   }
 }
 
-export const authMiddleware = async (
+export const authMiddleware: RequestHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -41,34 +41,34 @@ export const authMiddleware = async (
   }
 };
 
-export const isAdminMiddleware = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    if (!req.user) {
-      res.status(401).json({
-        success: false,
-        message: "Usuario no autenticado",
-      });
-      return;
-    }
+// export const isAdminMiddleware = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> => {
+//   try {
+//     if (!req.user) {
+//       res.status(401).json({
+//         success: false,
+//         message: "Usuario no autenticado",
+//       });
+//       return;
+//     }
 
-    if (req.user.role !== "admin") {
-      res.status(403).json({
-        success: false,
-        message: "Acceso denegado. Se requieren permisos de administrador.",
-      });
-      return;
-    }
+//     if (req.user.role !== "admin") {
+//       res.status(403).json({
+//         success: false,
+//         message: "Acceso denegado. Se requieren permisos de administrador.",
+//       });
+//       return;
+//     }
 
-    next();
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error al verificar permisos de administrador",
-      error: error instanceof Error ? error.message : error,
-    });
-  }
-};
+//     next();
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: "Error al verificar permisos de administrador",
+//       error: error instanceof Error ? error.message : error,
+//     });
+//   }
+// };
