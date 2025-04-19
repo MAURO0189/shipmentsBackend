@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { setupSwagger } from "./config/swagger";
 import { adminRouter } from "./infrastructure/routes/admin.route";
-import { createClient } from "redis";
 import { AppDataSource } from "./infrastructure/database/data-source";
 import { userRouter } from "./infrastructure/routes/user.route";
 import { shipmentRouter } from "./infrastructure/routes/shipment.routes";
@@ -41,7 +41,8 @@ app.use("/api/shipment", shipmentRouter);
 app.use("/api/carriers", carrierRouter);
 app.use("/api/shipment-routes", shipmentRouteRouter);
 
-export const redisClient = createClient();
+// Swagger setup
+setupSwagger(app);
 
 const PORT = process.env.PORT || 3000;
 
