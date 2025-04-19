@@ -7,6 +7,7 @@ import { Shipment } from "./entities/shipment.entity";
 import { ShipmentRoute } from "./entities/ShipmentRoute.entity";
 import { Carrier } from "./entities/Carrier.entity";
 import { RouteShipment } from "./entities/RouteShipment.entity";
+import { ShipmentStatusHistory } from "./entities/ShipmentStatusHistory.entity";
 
 config();
 
@@ -19,5 +20,13 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User, Admin, Shipment, ShipmentRoute, Carrier, RouteShipment],
+  entities: [
+    User,
+    Admin,
+    Shipment,
+    ShipmentRoute,
+    Carrier,
+    RouteShipment,
+    ShipmentStatusHistory,
+  ],
 });
