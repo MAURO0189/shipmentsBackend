@@ -6,7 +6,6 @@ import { ShipmentService } from "../../services/shipment.service";
 
 export const shipmentRouter = Router();
 
-// Configuración de dependencias
 const shipmentRepository = new ShipmentRepository();
 const shipmentService = new ShipmentService(shipmentRepository);
 const shipmentController = new ShipmentController(shipmentService);
@@ -34,4 +33,10 @@ shipmentRouter.get(
   "/:uuid",
   authMiddleware,
   shipmentController.getShipmentByUuid.bind(shipmentController)
+);
+
+shipmentRouter.get(
+  "/shipments/:id/history",
+  authMiddleware,
+  shipmentController.getShipmentStatusHistory.bind(shipmentController)
 );

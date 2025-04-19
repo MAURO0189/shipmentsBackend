@@ -1,7 +1,6 @@
 import express from "express";
 import { ShipmentRouteController } from "../controllers/ShipmentRoute.Controller";
 import { ShipmentRouteService } from "../../services/ShipmentRoute.Service";
-import { authMiddleware } from "../../middleware/auth.middleware";
 import { adminMiddleware } from "../../middleware/admin.middleware";
 
 export const shipmentRouteRouter = express.Router();
@@ -13,56 +12,55 @@ const shipmentRouteController = new ShipmentRouteController(
 // Rutas que requieren autenticación y rol de administrador
 shipmentRouteRouter.post(
   "/create",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.createShipmentRoute.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.patch(
   "/status/:id",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.updateRouteStatus.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/list",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getAllRoutes.bind(shipmentRouteController)
 );
 
-// Nuevo endpoint para filtrar rutas por estado
 shipmentRouteRouter.get(
   "/status/:status",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRoutesByStatus.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/detail/:uuid",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRouteByUuid.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/shipment/:shipmentId",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRoutesByShipmentId.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/date-range",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRoutesByDateRange.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/carrier/:carrierId",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRoutesByCarrierId.bind(shipmentRouteController)
 );
 
 shipmentRouteRouter.get(
   "/shipment-status/:status",
-  [authMiddleware, adminMiddleware],
+  adminMiddleware,
   shipmentRouteController.getRoutesByShipmentStatus.bind(
     shipmentRouteController
   )
