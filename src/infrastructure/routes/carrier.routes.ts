@@ -29,17 +29,30 @@ const carrierController = new CarrierController(carrierService);
  *           schema:
  *             type: object
  *             required:
- *               - nombre
+ *               - name
+ *               - phone
  *             properties:
- *               nombre:
+ *               name:
  *                 type: string
- *               telefono:
+ *                 maxLength: 100
+ *                 example: Juan Pérez
+ *               phone:
  *                 type: string
- *               email:
+ *                 maxLength: 15
+ *                 example: "3001234567"
+ *               vehicleModel:
  *                 type: string
- *                 format: email
- *               vehiculo:
+ *                 maxLength: 100
+ *                 nullable: true
+ *                 example: Renault Kangoo
+ *               vehiclePlate:
  *                 type: string
+ *                 maxLength: 10
+ *                 nullable: true
+ *                 example: ABC123
+ *               isActive:
+ *                 type: boolean
+ *                 default: true
  *     responses:
  *       201:
  *         description: Transportista creado con éxito
