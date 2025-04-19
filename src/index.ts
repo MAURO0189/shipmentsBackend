@@ -25,13 +25,7 @@ const devHosts = [
 const app = express();
 app.use(express.json());
 
-//Routes
-app.use("/api/admin", adminRouter);
-app.use("/api/user", userRouter);
-app.use("/api/shipment", shipmentRouter);
-app.use("/api/carriers", carrierRouter);
-app.use("/api/shipment-routes", shipmentRouteRouter);
-
+// Configura CORS ANTES de las rutas
 app.use(
   cors({
     origin: process.env.NODE_ENV === "production" ? allowdHost : devHosts,
@@ -40,25 +34,25 @@ app.use(
   })
 );
 
+// Luego configura las rutas
+app.use("/api/admin", adminRouter);
+app.use("/api/user", userRouter);
+app.use("/api/shipment", shipmentRouter);
+app.use("/api/carriers", carrierRouter);
+app.use("/api/shipment-routes", shipmentRouteRouter);
+
 export const redisClient = createClient();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  const startTime = new Date().toLocaleString();
-  console.log(`🚀 Server started at ${startTime}`);
-  console.log(`🚀 Server running on port ${PORT}`);
-});
-
-app.on("error", (err) => {
-  console.error(`❌ Server error:${err}`);
-});
 
 AppDataSource.initialize()
   .then(() => {
     console.log("📦 Data Source initialized!");
 
     app.listen(PORT, () => {
-      console.log(`🚀 Server listening on port ${PORT}`);
+      const startTime = new Date().toLocaleString();
+      console.log(`🚀 Server started at ${startTime}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
