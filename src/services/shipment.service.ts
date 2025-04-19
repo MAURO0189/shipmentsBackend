@@ -1,7 +1,9 @@
 import { IShipmentRepository } from "../auth/interfaces/shipment.repository.interface";
 import { CreateShipmentDto } from "../domain/dtos/create-shipment.dto";
 import { ShipmentStatus } from "../domain/enums/shipment-status.enum";
+import { AppDataSource } from "../infrastructure/database/data-source";
 import { Shipment } from "../infrastructure/database/entities/shipment.entity";
+import { ShipmentStatusHistory } from "../infrastructure/database/entities/ShipmentStatusHistory.entity";
 
 export class ShipmentService {
   constructor(private readonly shipmentRepository: IShipmentRepository) {}
@@ -98,5 +100,14 @@ export class ShipmentService {
       }
       throw new Error("Error desconocido al obtener el envío");
     }
+  }
+
+  async getStatusHistory(shipmentId: number): Promise<ShipmentStatusHistory[]> {
+    const historyRepo = AppDataSource.getRepository(ShipmentStatusHistory);
+
+    return historyRepo.find({
+      where: { shipmentId },
+      order: { changedAt: "DESC" }, // Opcional: orden cronológico inverso
+    });
   }
 }

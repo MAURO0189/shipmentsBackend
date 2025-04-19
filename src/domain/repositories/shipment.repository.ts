@@ -5,6 +5,7 @@ import { AppDataSource } from "../../infrastructure/database/data-source";
 import { v4 as uuidv4 } from "uuid";
 import { IShipmentRepository } from "../../auth/interfaces/shipment.repository.interface";
 import { ShipmentStatus } from "../enums/shipment-status.enum";
+import { ShipmentStatusHistory } from "../../infrastructure/database/entities/ShipmentStatusHistory.entity";
 
 export class ShipmentRepository implements IShipmentRepository {
   private ormRepo: Repository<Shipment>;
@@ -60,6 +61,36 @@ export class ShipmentRepository implements IShipmentRepository {
       statusUpdatedAt: new Date(),
     });
 
+    const shipment = await this.findById(id);
+    if (!shipment) return null;
+
+    const oldStatus = shipment.status;
+    const newStatus = status;
+
+    await this.ormRepo.update(id, {
+      status: newStatus,
+      statusUpdatedAt: new Date(),
+    });
+
+    const historyRepo = AppDataSource.getRepository(ShipmentStatusHistory);
+    const history = historyRepo.create({
+      shipmentId: id,
+      oldStatus,
+      newStatus,
+      changedAt: new Date(),
+    });
+    await historyRepo.save(history);
+
     return this.findById(id);
+  }
+
+  async findStatusHistoryByShipmentId(
+    shipmentId: number
+  ): Promise<ShipmentStatusHistory[]> {
+    const historyRepo = AppDataSource.getRepository(ShipmentStatusHistory);
+    return historyRepo.find({
+      where: { shipmentId },
+      order: { changedAt: "DESC" },
+    });
   }
 }

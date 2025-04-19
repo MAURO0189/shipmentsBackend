@@ -160,4 +160,20 @@ export class ShipmentController {
       });
     }
   }
+
+  async getShipmentStatusHistory(req: Request, res: Response): Promise<void> {
+    const shipmentId = parseInt(req.params.id);
+
+    if (isNaN(shipmentId)) {
+      res.status(400).json({ message: "Invalid shipment ID" });
+    }
+
+    try {
+      const history = await this.shipmentService.getStatusHistory(shipmentId);
+      res.json(history);
+    } catch (error) {
+      console.error("Error fetching status history:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 }
