@@ -21,10 +21,10 @@ export class ShipmentRoute {
   uuid!: string;
 
   @Column({ type: "varchar", length: 100 })
-  name!: string;
+  originAddress!: string;
 
-  @Column({ type: "varchar", length: 255, nullable: true })
-  description?: string;
+  @Column({ type: "varchar", length: 255 })
+  destinationAddress!: string;
 
   @Column({
     type: "enum",
@@ -36,7 +36,9 @@ export class ShipmentRoute {
   @Column({ type: "bigint", unsigned: true })
   carrierId!: number;
 
-  @Column()
+  @Column({ type: "text", nullable: true })
+  notes?: string;
+
   @CreateDateColumn()
   createdAt!: Date;
 
@@ -47,6 +49,8 @@ export class ShipmentRoute {
   @JoinColumn({ name: "carrierId" })
   carrier!: Carrier;
 
-  @OneToMany(() => RouteShipment, (routeShipment) => routeShipment.route)
+  @OneToMany(() => RouteShipment, (routeShipment) => routeShipment.route, {
+    cascade: true,
+  })
   routeShipments!: RouteShipment[];
 }

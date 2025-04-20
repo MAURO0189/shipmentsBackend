@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -9,6 +10,23 @@ import {
 import { ShipmentStatus } from "../enums/shipment-status.enum";
 
 export class CreateShipmentDto {
+  @IsString()
+  origin!: string;
+
+  @IsString()
+  destination!: string;
+
+  @IsNotEmpty({ message: "La dirección de origen es obligatoria" })
+  @IsString({ message: "La dirección de origen debe de ser exacta" })
+  originAddress!: string;
+
+  @IsNotEmpty({ message: "La dirección de destino es obligatoria" })
+  @IsString({ message: "La dirección de destino debe de ser exacta" })
+  destinationAddress!: string;
+
+  @IsString()
+  description!: string;
+
   @IsNotEmpty()
   @IsNumber()
   @Min(0.1)
@@ -32,6 +50,14 @@ export class CreateShipmentDto {
   @IsNotEmpty()
   @IsString()
   productType!: string;
+
+  @IsNumber()
+  @IsOptional()
+  declaredValue?: number;
+
+  @IsBoolean()
+  @IsOptional()
+  isFragile?: boolean;
 
   @IsOptional()
   @IsEnum(ShipmentStatus)

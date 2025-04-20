@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "./user.entity";
 import { ShipmentStatus } from "../../../domain/enums/shipment-status.enum";
+import { RouteShipment } from "./RouteShipment.entity";
 
 @Entity()
 export class Shipment {
@@ -17,6 +19,21 @@ export class Shipment {
 
   @Column({ unique: true })
   uuid!: string;
+
+  @Column("varchar")
+  origin!: string;
+
+  @Column("varchar")
+  destination!: string;
+
+  @Column("varchar", { nullable: false })
+  originAddress!: string;
+
+  @Column("varchar", { nullable: false })
+  destinationAddress!: string;
+
+  @Column("varchar")
+  description!: string;
 
   @Column("decimal", { precision: 10, scale: 2 })
   weight!: number;
@@ -29,6 +46,12 @@ export class Shipment {
 
   @Column("int")
   length!: number;
+
+  @Column("decimal", { precision: 10, scale: 2, nullable: false })
+  declaredValue!: number;
+
+  @Column("boolean", { default: false })
+  isFragile!: boolean;
 
   @Column("varchar")
   productType!: string;
@@ -59,4 +82,7 @@ export class Shipment {
   @ManyToOne(() => User, (user) => user.shipments)
   @JoinColumn({ name: "userId" })
   user!: User;
+
+  @OneToMany(() => RouteShipment, (routeShipment) => routeShipment.shipment)
+  routeShipments!: RouteShipment[];
 }

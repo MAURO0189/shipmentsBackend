@@ -24,11 +24,18 @@ export class ShipmentRepository implements IShipmentRepository {
 
     const newShipment = this.ormRepo.create({
       uuid,
+      origin: data.origin,
+      destination: data.destination,
+      description: data.description,
+      originAddress: data.originAddress,
+      destinationAddress: data.destinationAddress,
       weight: data.weight,
       height: data.height,
       width: data.width,
       length: data.length,
       productType: data.productType,
+      declaredValue: data.declaredValue,
+      isFragile: data.isFragile || false,
       userId,
       userUuid,
       createdAt: now,

@@ -25,31 +25,34 @@ export class ShipmentRouteRepository implements IShipmentRouteRepository {
       const uuid = uuidv4();
       const now = new Date();
 
-      // Crear la ruta
-      const newRoute = this.routeRepo.create({
+      const newRoute = queryRunner.manager.create(ShipmentRoute, {
         uuid,
-        name: data.name,
-        description: data.description,
         carrierId: data.carrierId,
+        originAddress: data.originAddress,
+        destinationAddress: data.destinationAddress,
+        notes: data.notes,
         status: RouteStatus.PENDING,
         createdAt: now,
         updatedAt: now,
       });
 
-      const savedRoute = await queryRunner.manager.save(newRoute);
+      const savedRoute = await queryRunner.manager.save(
+        ShipmentRoute,
+        newRoute
+      );
 
-      // Asignar los envíos a la ruta
-      for (const shipmentId of data.shipmentIds) {
-        const routeShipment = this.routeShipmentRepo.create({
-          routeId: savedRoute.id,
-          shipmentId: shipmentId,
-          assignedAt: now,
-        });
-        await queryRunner.manager.save(routeShipment);
-      }
+      // Crear relación en RouteShipment usando queryRunner.manager
+      const routeShipment = queryRunner.manager.create(RouteShipment, {
+        routeId: savedRoute.id,
+        shipmentId: data.shipmentId,
+        assignedAt: now,
+      });
+
+      await queryRunner.manager.save(RouteShipment, routeShipment);
 
       await queryRunner.commitTransaction();
 
+      // Puedes usar el repositorio normal fuera de la transacción
       const result = await this.findById(savedRoute.id);
       if (!result) {
         throw new Error("ShipmentRoute not found after creation");
