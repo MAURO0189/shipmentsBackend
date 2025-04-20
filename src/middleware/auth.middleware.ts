@@ -40,35 +40,3 @@ export const authMiddleware: RequestHandler = (
     });
   }
 };
-
-// export const isAdminMiddleware = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ): Promise<void> => {
-//   try {
-//     if (!req.user) {
-//       res.status(401).json({
-//         success: false,
-//         message: "Usuario no autenticado",
-//       });
-//       return;
-//     }
-
-//     if (req.user.role !== "admin") {
-//       res.status(403).json({
-//         success: false,
-//         message: "Acceso denegado. Se requieren permisos de administrador.",
-//       });
-//       return;
-//     }
-
-//     next();
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: "Error al verificar permisos de administrador",
-//       error: error instanceof Error ? error.message : error,
-//     });
-//   }
-// };
