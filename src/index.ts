@@ -25,7 +25,6 @@ const devHosts = [
 const app = express();
 app.use(express.json());
 
-// Configura CORS ANTES de las rutas
 app.use(
   cors({
     origin: process.env.NODE_ENV === "production" ? allowdHost : devHosts,
@@ -34,14 +33,12 @@ app.use(
   })
 );
 
-// Luego configura las rutas
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/shipment", shipmentRouter);
 app.use("/api/carrier", carrierRouter);
 app.use("/api/shipment-route", shipmentRouteRouter);
 
-// Swagger setup
 setupSwagger(app);
 
 const PORT = process.env.PORT || 3000;
