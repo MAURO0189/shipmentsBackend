@@ -33,23 +33,30 @@ const shipmentRouteController = new ShipmentRouteController(
  *             required:
  *               - shipmentId
  *               - carrierId
- *               - origen
- *               - destino
+ *               - originAddress
+ *               - destinationAddress
  *             properties:
  *               shipmentId:
  *                 type: integer
+ *                 description: ID del envío que se asignará a esta ruta
  *               carrierId:
  *                 type: integer
- *               origen:
+ *                 description: ID del transportista
+ *               originAddress:
  *                 type: string
- *               destino:
+ *                 description: Dirección de origen
+ *               destinationAddress:
  *                 type: string
- *               fechaInicio:
+ *                 description: Dirección de destino
+ *               notes:
  *                 type: string
- *                 format: date-time
- *               fechaEstimadaLlegada:
- *                 type: string
- *                 format: date-time
+ *                 description: Notas opcionales sobre la ruta
+ *           example:
+ *             shipmentId: 1023
+ *             carrierId: 5
+ *             originAddress: "Calle 45 #12-34, Bogotá"
+ *             destinationAddress: "Carrera 7 #89-10, Medellín"
+ *             notes: "Ruta con carga refrigerada. Verificar temperatura."
  *     responses:
  *       201:
  *         description: Ruta de envío creada con éxito

@@ -19,29 +19,22 @@ export class ShipmentRouteService {
   async createShipmentRoute(
     data: CreateShipmentRouteDto
   ): Promise<ShipmentRoute> {
-    // Validar que todos los envíos existan y estén en estado PENDING
-    for (const shipmentId of data.shipmentIds) {
-      const shipment = await this.shipmentRepository.findById(shipmentId);
-      if (!shipment) {
-        throw new Error(`El envío con ID ${shipmentId} no existe`);
-      }
-      if (shipment.status !== ShipmentStatus.PENDING) {
-        throw new Error(
-          `El envío con ID ${shipmentId} no está en estado pendiente`
-        );
-      }
+    const shipment = await this.shipmentRepository.findById(data.shipmentId);
+    if (!shipment) {
+      throw new Error(`El envío con ID ${data.shipmentId} no existe`);
     }
-
-    // Crear la ruta y asignar los envíos
-    const route = await this.shipmentRouteRepository.create(data);
-
-    // Actualizar el estado de los envíos a IN_TRANSIT
-    for (const shipmentId of data.shipmentIds) {
-      await this.shipmentRepository.updateStatus(
-        shipmentId,
-        ShipmentStatus.IN_TRANSIT
+    if (shipment.status !== ShipmentStatus.PENDING) {
+      throw new Error(
+        `El envío con ID ${data.shipmentId} no está en estado pendiente`
       );
     }
+
+    const route = await this.shipmentRouteRepository.create(data);
+
+    await this.shipmentRepository.updateStatus(
+      data.shipmentId,
+      ShipmentStatus.IN_TRANSIT
+    );
 
     return route;
   }
