@@ -38,8 +38,8 @@ app.use(
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
 app.use("/api/shipment", shipmentRouter);
-app.use("/api/carriers", carrierRouter);
-app.use("/api/shipment-routes", shipmentRouteRouter);
+app.use("/api/carrier", carrierRouter);
+app.use("/api/shipment-route", shipmentRouteRouter);
 
 // Swagger setup
 setupSwagger(app);
