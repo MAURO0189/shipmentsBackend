@@ -21,8 +21,8 @@ const shipmentController = new ShipmentController(shipmentService);
  * @swagger
  * /api/shipment/register:
  *   post:
- *     summary: Registrar un nuevo envío
- *     tags: [Envíos]
+ *     summary: Register a new shipment
+ *     tags: [Shipments]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -32,35 +32,56 @@ const shipmentController = new ShipmentController(shipmentService);
  *           schema:
  *             type: object
  *             required:
- *               - origen
- *               - destino
- *               - descripcion
- *               - peso
+ *               - origin
+ *               - destination
+ *               - originAddress
+ *               - destinationAddress
+ *               - description
+ *               - weight
+ *               - height
+ *               - width
+ *               - length
+ *               - productType
  *             properties:
- *               origen:
+ *               origin:
  *                 type: string
- *               destino:
+ *                 description: Origin address or location
+ *               destination:
  *                 type: string
- *               descripcion:
+ *                 description: Destination address or location
+ *               originAddress:
  *                 type: string
- *               peso:
+ *                 description: Origin address
+ *               destinationAddress:
+ *                 type: string
+ *                 description: Destination address
+ *               description:
+ *                 type: string
+ *                 description: Description of the shipment
+ *               weight:
  *                 type: number
- *               dimensiones:
- *                 type: object
- *                 properties:
- *                   largo:
- *                     type: number
- *                   ancho:
- *                     type: number
- *                   alto:
- *                     type: number
- *               valorDeclarado:
+ *                 description: Weight in kilograms
+ *               height:
  *                 type: number
- *               esFragil:
+ *                 description: Height in centimeters
+ *               width:
+ *                 type: number
+ *                 description: Width in centimeters
+ *               length:
+ *                 type: number
+ *                 description: Length in centimeters
+ *               productType:
+ *                 type: string
+ *                 description: Type of product being shipped
+ *               declaredValue:
+ *                 type: number
+ *                 description: Declared value of the shipment
+ *               isFragile:
  *                 type: boolean
+ *                 description: Indicates if the shipment contains fragile items
  *     responses:
  *       201:
- *         description: Envío registrado con éxito
+ *         description: Shipment successfully registered
  *         content:
  *           application/json:
  *             schema:
@@ -71,13 +92,13 @@ const shipmentController = new ShipmentController(shipmentService);
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: Envío registrado con éxito
+ *                   example: Shipment successfully registered
  *                 data:
  *                   type: object
  *       400:
- *         description: Error al registrar el envío
+ *         description: Error registering the shipment
  *       401:
- *         description: Usuario no autenticado
+ *         description: User not authenticated
  */
 shipmentRouter.post(
   "/register",

@@ -33,11 +33,11 @@ const adminController = new AdminController(adminService);
  *           schema:
  *             type: object
  *             required:
- *               - nombre
+ *               - AdminName
  *               - email
  *               - password
  *             properties:
- *               nombre:
+ *               AdminName:
  *                 type: string
  *               email:
  *                 type: string
